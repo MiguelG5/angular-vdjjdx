@@ -1,264 +1,83 @@
-# Login
+# Auth0 Angular SDK sample
 
-El proyecto fue generado con [Angular CLI](https://github.com/angular/angular-cli) version 15.0.2.
+This sample app demonstrates the integration of the [Auth0 Angular SDK](https://github.com/auth0/auth0-angular) into an Angular application created using the Angular CLI. This sample is a companion to the [Auth0 Angular SDK Quickstart](https://auth0.com/docs/quickstart/spa/angular).
+
+This sample demonstrates the following use cases:
+
+- Login
+- Log out
+- Showing the user profile
+- Protecting routes using the authentication guard
+- Calling APIs with automatically-attached bearer tokens
+
+## Configuration
+
+The sample needs to be configured with your Auth0 domain and client ID in order to work. In the root of the sample, copy `auth_config.json.example` and rename it to `auth_config.json`. Open the file and replace the values with those from your Auth0 tenant:
+
+```json
+{
+  "domain": "<YOUR AUTH0 DOMAIN>",
+  "clientId": "<YOUR AUTH0 CLIENT ID>",
+  "audience": "<YOUR AUTH0 API AUDIENCE IDENTIFIER>"
+}
+```
 
 ## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Run `npm run dev` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
-
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+This will automatically start a Node + Express server as the backend on port `3001`. The Angular application is configured to proxy through to this on any `/api` route.
 
 ## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Run `npm build` to build the project. The build artifacts will be stored in the `dist/login-demo` directory. Use the `--prod` flag for a production build.
 
-## Running unit tests
+To build and run a production bundle and serve it, run `npm run prod`. The application will run on `http://localhost:3000`.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Run Using Docker
 
-## Running end-to-end tests
+You can build and run the sample in a Docker container by using the provided scripts:
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+```bash
+# In Linux / MacOS
+sh exec.sh
+
+# Windows Powershell
+./exec.ps1
+```
 
 ## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
-# Introducción
-En éste pequeño ejemplo se creará una aplicación para registro e ingreso de un usuario.
-![image](https://user-images.githubusercontent.com/8560750/215658585-80c50000-3da3-4967-a262-915f2380bd99.png)
+## Frequently Asked Questions
 
+We are compiling a list of questions and answers regarding the new JavaScript SDK - if you're having issues running the sample applications, [check the FAQ](https://github.com/auth0/auth0-spa-js/blob/master/FAQ.md)!
 
-## Primera parte crear la interfaz de usuario de Login.
-### 1. Generar el proyecto Angular
-~~~
-ng new login
-~~~
-- Es necesario seleccionar un módulo de routing.
-- Utilizar el estilo **SCSS**.
+# What is Auth0?
 
-### 2. Instalar los módulos
-Cambiarse al directorio recien creado en el punto 1 e instalar los módulos default cuando se instalar la aplicación.
-~~~
-cd login
-npm install
-~~~
+Auth0 helps you to:
 
-### 3. Agregar los componentes login y registro
-Mediante la terminal agregar las siguientes instrucciones para la creación de los componentes de `Login` y `Register`, vease [Components](https://angular.io/guide/component-overview) para un mejor entendimiento
-~~~
- ng g c components/login
- ng g c components/register
-~~~
-Observa que se crea una carpeta llamada `components` dentro de la carpeta `src\app`
+- Add authentication with [multiple authentication sources](https://auth0.com/docs/identityproviders), either social like **Google, Facebook, Microsoft Account, LinkedIn, GitHub, Twitter, Box, Salesforce, among others**, or enterprise identity systems like **Windows Azure AD, Google Apps, Active Directory, ADFS or any SAML Identity Provider**.
+- Add authentication through more traditional **[username/password databases](https://auth0.com/docs/connections/database/custom-db/create-db-connection)**.
+- Add support for **[linking different user accounts](https://auth0.com/docs/users/user-account-linking)** with the same user.
+- Support for generating signed [Json Web Tokens](https://auth0.com/docs/tokens/json-web-tokens) to call your APIs and **flow the user identity** securely.
+- Analytics of how, when and where users are logging in.
+- Pull data from other sources and add it to the user profile, through [JavaScript rules](https://auth0.com/docs/rules).
 
-![image](https://user-images.githubusercontent.com/8560750/215362677-e296d9ea-87bd-4f24-b361-ccf07c95bf6f.png)
+## Create a Free Auth0 Account
 
-### 4. Definir las rutas de login y registro
-La idea inicial es tener tres rutas: ** Home, Login,  y Register**.
+1. Go to [Auth0](https://auth0.com/signup) and click Sign Up.
+2. Use Google, GitHub or Microsoft Account to login.
 
-Modificar el archivo `app-routing.module.ts` para agregar las rutas o paths, sino recuerda el ruteo vea la siguiente referencia [Routes](https://angular.io/api/router/Route)
+## Issue Reporting
 
-~~~
+If you have found a bug or if you have a feature request, please report them at this repository issues section. Please do not report security vulnerabilities on the public GitHub issue tracker. The [Responsible Disclosure Program](https://auth0.com/whitehat) details the procedure for disclosing security issues.
 
-const routes: Routes = [
-  {path:'', component:AppComponent, pathMatch:'full'},
-  {path:'login', component:LoginComponent, pathMatch:'full'},
-  {path:'register', component:RegisterComponent, pathMatch: 'full'}
-];  
-~~~
+## Author
 
-### 5. Agregar el módulo FormsComponent
-Abrir y modificar el archivo `app.module.ts`
-- Observa la configuración de los módulos Login y Register recién creados en la sección declarations
-- Agregar el módulo FormsModule para el manejo de formularios a través `import { FormsModule } from '@angular/forms';` e importarlo dentro de la importación del @NgModule
+[Auth0](https://auth0.com)
 
-~~~
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+## License
 
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { LoginComponent } from './components/login/login.component';
-import { RegisterComponent } from './components/register/register.component';
-import { FormsModule } from '@angular/forms';
-
-@NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    RegisterComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule, 
-    FormsModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
-})
-export class AppModule { }
-~~~
-
-### 6. Componente Login
-![image](https://user-images.githubusercontent.com/8560750/215365502-9a1cd5e3-7c26-45c8-aa7b-355ef42a5ba2.png)
-
-Definir el estilo general de las dos formas en `styles.scss`
-~~~
-.form-custom {
-    background-color: orange;
-    border-radius: 15px;
-    margin-top: 10%;
-    min-width: 300px;
-    min-height: 250px;
-    max-width: 60%;
-    margin: 0px auto;
-}
-
-.form-custom input {
-    display: block;
-    margin: 2rem;
-    padding: 1rem;
-    width: 80%;
-    box-shadow: inset -5px -5px 15px rgba(255, 255, 255, 0.8), inset 5px 5px 10px
-      rgba(0, 0, 0, 0.1);
-    background: #ebf5fc;
-}
-
-.form-custom button {
-    display: block;
-    border-radius: 15px;
-    border: 0px solid;
-    background-color: rgb(177, 163, 228);
-    font-size: large;
-    text-transform: uppercase;
-    padding: 1rem;
-    width: 100%;
-}
-
-~~~
-
-Modificar el archivo `login.component.html` para indicar las etiquetas HTML dentro de la forma
-~~~
-<div class="login">
-  <form action="" class="form-custom">
-    <h1>Ingresar</h1>
-    <input type="text" name="email" [(ngModel)]="email" placeholder="Email" required="required" />
-    <input type="password" name="password" [(ngModel)]="password" placeholder="Password" required="required">
-
-    <button type="submit" (click)="login()">Ingresar</button>
-  </form>
-</div>
-~~~
-
-Definir el estilo del componente `login.component.scss`
-~~~
-.login {
-    text-align: center;
-}
-~~~
-
-Definir el componente `login.component.ts` que hara el enlace con la forma a través de los atributos email y password
-~~~
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
-})
-export class LoginComponent {
-  email:string; //Captura de email
-  password:string;  //Captura de password
-
-  constructor() { //Inicializar los dos atributos
-    this.email = '';
-    this.password = ''
-  }
-
-  login() {  //Función para evento clic
-    console.log('Email: ' + this.email);
-    console.log('Password: ' + this.password);
-  }
-}
-
-~~~
-
-### 7. Register
-Modificar la interfaz de usuario, para ello abrir el archivo `register.component.html` donde se capturará datos para el registro de usuarios
-~~~
-<div class="register">
-  <form class="form-custom">
-    <h1>Registrar</h1>
-    <input
-      type="text"
-      name="email"
-      [(ngModel)]="email"
-      placeholder="Email"
-      required="required"
-    />
-    <input
-      type="password"
-      name="password"
-      [(ngModel)]="password"
-      placeholder="Password"
-      required="required"
-    />
-    <input
-      type="password"
-      [(ngModel)]="confirmPassword"
-      name="password"
-      placeholder="Repeat the password"
-      required="required"
-    />
-    <button type="submit" (click)="register()">Ingresar</button>
-  </form>
-</div>
-
-~~~
-
-Modificar el archivo de estilo `register.componente.scss`
-~~~
-.register {
-    text-align: center;
-}
-~~~
-
-Modificar el archivo `register.component.ts`
-~~~
-import { Component } from '@angular/core';
-
-@Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss']
-})
-export class RegisterComponent {
-  email:string; //Captura de email
-  password:string;  //Captura de password
-  confirmPassword:string;
-
-  constructor() { //Inicializar los dos atributos
-    this.email = '';
-    this.password = ''
-    this.confirmPassword = '';
-  }
-
-  register() {  //Función para evento clic
-    console.log('Email: ' + this.email);
-    console.log('Password: ' + this.password);
-    console.log('Confirm Password: ' + this.confirmPassword);
-  }
-}
-
-~~~
-
-### 8. Deployarlo en StackBlitz
-1. Ingresar a la URL [StackBlitz](https://stackblitz.com/)
-2. Pero primeramente agregar la instrucción `import 'zone.js';` en archivo `main.ts`
-
-### 9. Completando la Práctica
-A. Modificar el archivo de tal manera que tenga un menú en la parte superior, un slider y un footer.
+This project is licensed under the MIT license. See the [LICENSE](../LICENSE) file for more info.
